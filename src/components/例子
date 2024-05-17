@@ -1,0 +1,128 @@
+User
+<template>
+  <div>
+    <h2>出账收入</h2>
+    <br>
+
+    <el-table :data="paginatedData" style="width: 100%" :row-class-name="getRowClass">
+      <el-table-column label="记录月份" prop="entryMonth" :formatter="formatEntryMonth"></el-table-column>
+      <el-table-column label="城市名称" :formatter="(row) => getNameByCode(row.cityCode, 'city')"></el-table-column>
+      <el-table-column label="产品名称" :formatter="(row) => getNameByCode(row.productCode, 'product')"></el-table-column>
+      <el-table-column label="计算类型名称" :formatter="(row) => getNameByCode(row.billingTypeCode, 'billingType')"></el-table-column>
+      <el-table-column label="记录金额" prop="entryAmount"></el-table-column>
+      <el-table-column label="稽核状态" prop="auditStatus" :formatter="getAuditStatus"></el-table-column>
+    </el-table>
+
+    <el-pagination
+        background
+        layout="total, prev, pager, next, jumper"
+        :total="total"
+        :page-size="pageSize"
+        :current-page="currentPage"
+        @current-change="handlePageChange">
+    </el-pagination>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+import { paginationMixin } from '../paginationMixin';
+
+export default {
+  mixins: [paginationMixin],
+  data() {
+    return {
+      cityCodeMap: {
+        '0': '江西本部',
+        '740': '江西景德镇',
+        '750': '江西南昌',
+        '751': '江西吉安',
+        '752': '江西赣州',
+        '753': '江西新余',
+        '754': '江西鹰潭',
+        '755': '江西九江',
+        '756': '江西宜春',
+        '757': '江西上饶',
+        '758': '江西萍乡',
+        '759': '江西抚州'
+      },
+      productCodeMap: {
+        '110101': '固话-基础业务-普通电话',
+        '110503': '固话-基础业务-公用电话-公话超市电话',
+        '120502': '固话-增值业务-800-国内',
+        '320113': '卡类-IP卡-省内IP电话卡-200卡',
+        '320114': '卡类-IP卡-省内IP电话卡-300卡',
+        '420201': '数据业务-互联网接入服务-宽带接入-ADSL虚拟拨号',
+        '420301': '数据业务-互联网接入服务-互联网普通专线接入',
+        '430101': '数据业务-平台业务-IDC-主机托管'
+      },
+      billingTypeCodeMap: {
+        '4001': '主营业务收入-公众客户-月租费收入',
+        '4002': '主营业务收入-公众客户-本地区内通话费',
+        '4003': '主营业务收入-公众客户-本地区间通话费',
+        '4004': '主营业务收入-公众客户-本地拨号上网通信费',
+        '4005': '主营业务收入-公众客户-国内长途通信费',
+        '4006': '主营业务收入-公众客户-国际长途通信费',
+        '4007': '主营业务收入-公众客户-港澳台长途通信费',
+        '4008': '主营业务收入-公众客户-IP国内长途通信费',
+        '4009': '主营业务收入-公众客户-IP国际长途通信费',
+        '4010': '主营业务收入-公众客户-IP港澳台长途通信费',
+        '4011': '主营业务收入-公众客户-装移机工料费收入',
+        '4012': '主营业务收入-公众客户-开户费收入',
+        '4013': '主营业务收入-公众客户-网络使用费',
+        '4014': '主营业务收入-公众客户-一次性费用',
+        '4015': '主营业务收入-公众客户-标准资费收入',
+        '4020': '主营业务收入-公众客户-增值业务收入',
+        '4021': '主营业务收入-公众客户-其他类收入',
+        '4022': '主营业务收入-公众客户-折扣与折让'
+      }
+    };
+  },
+  methods: {
+    fetchData() {
+      axios.get('http://localhost:8080/income/get_all', { params: { entityType: 'BillingIncome' } })
+          .then(response => this.updatePaginationData(response.data.data))
+          .catch(error => console.error(error));
+    },
+    formatEntryMonth(row) {
+      if (row.entryMonth) {
+        const date = new Date(row.entryMonth);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      }
+      return '';
+    },
+
+    getAuditStatus(row) {
+      const statusMap = {
+        'Pending': '稽核中',
+        'Approved': '稽核通过',
+        'Rejected': '稽核不通过'
+      };
+      return statusMap[row.auditStatus] || '';
+    },
+
+    getNameByCode(code, type) {
+      const map = {
+        city: this.cityCodeMap,
+        product: this.productCodeMap,
+        billingType: this.billingTypeCodeMap
+      };
+      return map[type][code] || code;
+    },
+    getRowClass({ row }) {
+      return row.auditStatus === 'Rejected' ? 'rejected-row' : '';
+    }
+  },
+  mounted() {
+    this.fetchData();
+  }
+};
+</script>
+<style>
+.rejected-row .el-table__cell {
+  color: red;
+}
+</style>

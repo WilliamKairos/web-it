@@ -16,9 +16,9 @@
       <el-menu-item-group>
         <el-menu-item index="/employee/billing">出账收入</el-menu-item>
         <el-menu-item index="/employee/card_sales">卡销售收入</el-menu-item>
-        <el-menu-item index="/employee/notification">网间结算收入</el-menu-item>
-        <el-menu-item index="/employee/intercompany">预存转收入</el-menu-item>
-        <el-menu-item index="/employee/prepaid_conversion_income">通知单收入</el-menu-item>
+        <el-menu-item index="/employee/notification">通知单收入</el-menu-item>
+        <el-menu-item index="/employee/intercompany">网间结算收入</el-menu-item>
+        <el-menu-item index="/employee/prepaid_conversion_income">预存转收入</el-menu-item>
       </el-menu-item-group>
     </el-sub-menu>
     <el-sub-menu index="/encode">
@@ -29,8 +29,16 @@
         <span>编码表</span>
       </template>
       <el-menu-item-group>
-        <el-menu-item index="/goods/list">产品列表</el-menu-item>
-        <el-menu-item index="/goods/category">产品分类</el-menu-item>
+        <el-menu-item index="/employee/billing_type">出账收入类型编码</el-menu-item>
+        <el-menu-item index="/employee/cancellation_type">销账类型编码</el-menu-item>
+        <el-menu-item index="/employee/city">地市编码</el-menu-item>
+        <el-menu-item index="/employee/notification_type">通知单收入编码</el-menu-item>
+        <el-menu-item index="/employee/product">产品编码</el-menu-item>
+        <el-menu-item index="/employee/product_billing_relationship">产品-出账对应关系</el-menu-item>
+        <el-menu-item index="/employee/product_notification_relationship">>产品-通知单对应关系</el-menu-item>
+        <el-menu-item index="/employee/receipt_purpose">收款用途编码</el-menu-item>
+        <el-menu-item index="/employee/settlement_operator">结算运营商编码</el-menu-item>
+        <el-menu-item index="/employee/settlement_type">结算类型编码</el-menu-item>
       </el-menu-item-group>
     </el-sub-menu>
   </el-menu>
