@@ -34,8 +34,6 @@
         <el-menu-item index="/employee/city">地市编码</el-menu-item>
         <el-menu-item index="/employee/notification_type">通知单收入编码</el-menu-item>
         <el-menu-item index="/employee/product">产品编码</el-menu-item>
-        <el-menu-item index="/employee/product_billing_relationship">产品-出账对应关系</el-menu-item>
-        <el-menu-item index="/employee/product_notification_relationship">>产品-通知单对应关系</el-menu-item>
         <el-menu-item index="/employee/receipt_purpose">收款用途编码</el-menu-item>
         <el-menu-item index="/employee/settlement_operator">结算运营商编码</el-menu-item>
         <el-menu-item index="/employee/settlement_type">结算类型编码</el-menu-item>

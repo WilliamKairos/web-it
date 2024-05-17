@@ -1,7 +1,7 @@
 User
 <template>
   <div>
-    <h2>出账收入</h2>
+    <h2>网间收入</h2>
     <br>
 
 

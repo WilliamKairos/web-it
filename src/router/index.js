@@ -15,8 +15,6 @@ import City from "@/components/encode/City.vue";
 import notificationType from "@/components/encode/NotificationType.vue";
 import Product from "@/components/encode/Product.vue";
 import NotificationType from "@/components/encode/NotificationType.vue";
-import ProductBillingRelationship from "@/components/encode/ProductBillingRelationship.vue";
-import ProductNotificationRelationship from "@/components/encode/ProductNotificationRelationship.vue";
 import receiptPurpose from "@/components/encode/ReceiptPurpose.vue";
 import settlementType from "@/components/encode/SettlementType.vue";
 import settlementOperator from "@/components/encode/SettlementOperator.vue";
@@ -80,16 +78,6 @@ const routes = [
         path: 'product',
         name: 'product',
         component: Product
-      },
-      {
-        path: 'product_billing_relationship',
-        name: 'product_billing_relationship',
-        component: ProductBillingRelationship
-      },
-      {
-        path: 'product_notification_relationship',
-        name: 'product_notification_relationship',
-        component: ProductNotificationRelationship
       },
       {
         path: 'receipt_purpose',
